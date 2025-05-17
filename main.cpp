@@ -21,39 +21,7 @@ SINH_VIEN *newnode()
 }
 void NHAP_SINH_VIEN(SINH_VIEN **SV)
 {
-    int n;
-    printf("\n nhap so luong sinh vien:\t");
-    scanf("%d", &n);
-    getchar();
-    for (int i = 0; i < n; i++)
-    {
-        SINH_VIEN *sv = newnode();
-        printf("\n nhap ma so sv:\t");
-        scanf("%d", &sv->MSSV);
-        getchar();
-        puts("\n nhap ten sinh vien:");
-        fgets(sv->HO_TEN, sizeof(sv->HO_TEN), stdin);
-        sv->HO_TEN[strcspn(sv->HO_TEN, "\n")] = '\0';
-        printf("\n nhap GPA:\t");
-        scanf("%f", &sv->GPA);
-        getchar();
-        if (*SV == NULL)
-        {
-            *SV = sv;
-            sv->next = NULL;
-        }
-        else
-        {
-            SINH_VIEN *p;
-            for (p = *SV; p->next != NULL; p = p->next)
-                ;
-            p->next = sv;
-        }
-    }
-}
-void IN_SINH_VIEN(SINH_VIEN **SV)
-{
-    int n;
+     int n;
     printf("\n Nhap so luong sinh vien:");
     scanf("%d", &n);
     getchar();
@@ -89,6 +57,28 @@ void IN_SINH_VIEN(SINH_VIEN **SV)
             p->next = sv;
         }
     }
+}
+void IN_SINH_VIEN(SINH_VIEN **SV){
+    if (*SV == NULL)
+    {
+        printf("\nDanh sach sinh vien rong!\n");
+        return;
+    }
+
+    printf("\n<+==========================================================+>");
+    printf("\n|| STT||    MSSV      ||         Ho Ten           ||   GPA  ||");
+    printf("\n=============================================================");
+
+    int count = 1;
+    SINH_VIEN *p;
+    for (p = *SV; p != NULL; p = p->next)
+    {
+        printf("\n|| %2d || %-12d || %-26s || %5.2f ||",
+               count, p->MSSV, p->HO_TEN, p->GPA);
+        count++;
+    }
+
+    printf("\n<+==========================================================+>");
 }
 
 void XOA_SINH_VIEN_THEO_MSSV(SINH_VIEN **SV)
